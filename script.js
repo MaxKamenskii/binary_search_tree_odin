@@ -114,6 +114,9 @@ class Tree {
   }
 
   inOrderForEach(callback) {
+    if (!callback) {
+      throw new Error("there is not callback");
+    }
     // let result = [];
     const traverse = (node) => {
       if (node.left) {
