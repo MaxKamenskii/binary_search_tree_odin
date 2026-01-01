@@ -117,7 +117,6 @@ class Tree {
     if (!callback) {
       throw new Error("there is not callback");
     }
-    // let result = [];
     const traverse = (node) => {
       if (node.left) {
         traverse(node.left);
@@ -128,11 +127,38 @@ class Tree {
       }
     };
     traverse(this.root);
-    // return result;
   }
 
-  preOrderForEach(callback) {}
-  postOrderForEach(callback) {}
+  preOrderForEach(callback) {
+    if (!callback) {
+      throw new Error("there is not callback");
+    }
+    const traverse = (node) => {
+      callback(node);
+      if (node.left) {
+        traverse(node.left);
+      }
+      if (node.right) {
+        traverse(node.right);
+      }
+    };
+    traverse(this.root);
+  }
+  postOrderForEach(callback) {
+    if (!callback) {
+      throw new Error("there is not callback");
+    }
+    const traverse = (node) => {
+      if (node.left) {
+        traverse(node.left);
+      }
+      if (node.right) {
+        traverse(node.right);
+      }
+      callback(node);
+    };
+    traverse(this.root);
+  }
   height() {}
   depth() {}
   isBalanced() {}
