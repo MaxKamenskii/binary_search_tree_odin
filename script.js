@@ -175,7 +175,25 @@ class Tree {
     };
     traverse(this.root);
   }
-  height() {}
+  height(data) {
+    let currentNode = this.find(data);
+    if (currentNode == null) return null;
+
+    let searchHeight = function (currentNode) {
+      if (currentNode == null) {
+        return -1;
+      } else {
+        return (
+          Math.max(
+            searchHeight(currentNode.left),
+            searchHeight(currentNode.right)
+          ) + 1
+        );
+      }
+    };
+
+    return searchHeight(currentNode);
+  }
   depth() {}
   isBalanced() {}
   rebalance() {}
