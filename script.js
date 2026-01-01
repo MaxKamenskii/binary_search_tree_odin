@@ -194,7 +194,26 @@ class Tree {
 
     return searchHeight(currentNode);
   }
-  depth() {}
+  depth(data) {
+    let currentNode = this.find(data);
+    let targetNode = this.root;
+    let amount = 0;
+    if (currentNode == null) return null;
+    if (currentNode == this.root) {
+      return 0;
+    }
+    while (currentNode !== targetNode) {
+      if (currentNode.data > targetNode.data) {
+        targetNode = targetNode.right;
+        amount++;
+      }
+      if (currentNode.data < targetNode.data) {
+        targetNode = targetNode.left;
+        amount++;
+      }
+    }
+    return amount;
+  }
   isBalanced() {}
   rebalance() {}
 }
