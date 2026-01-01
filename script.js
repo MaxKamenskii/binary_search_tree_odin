@@ -59,11 +59,64 @@ class Tree {
     }
   }
 
-  deleteItem() {}
+  deleteItem(data) {
+    const removeNode = function(node, data) {
+        if (node == null) {
+            return null;
+        }
+        if (data == node.data) {
+            if (node.left == null && node.right == null) {
+                return null;
+            }
+            if (node.left == null) {
+                return node.right
+            }
+            if (node.right == null) {
+                return node.left
+            }
+            let tempNode = node.right;
+            while (tempNode.left !== null) {
+                tempData = tempNode.left;
+            }
+            node.data = tempNode.data;
+            node.right = removeNode(node.right, tempNode.data);
+            return node;
+        } else if (data < node.data) {
+            node.left = removeNode(node.left, data);
+            return node;
+        } else {
+            node.right = removeNode(node.right, data);
+            return node;
+        }
+    }
+    this.root = removeNode(this.root, data)
+  }
 
-  find() {}
+  find(data) {
+    let current = this.root;
+    while (current.data !== data) {
+        if (data < current.data) {
+            current = current.left;
+        } else {
+            current = current.right;
+        }
+        if (current === null) {
+            return null;
+        }
+    }
+    return current;
+  }
 
-  leverOrderForEach(callback) {}
+  leverOrderForEach(callback) {
+    if (this.root == null) {
+        return null
+    }
+    let queue = []
+    queue.push(this.root);
+    while(queue.length() > 0) {
+        
+    }
+  }
 
   inOrderForEach(callback) {}
 
