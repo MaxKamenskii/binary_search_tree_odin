@@ -107,10 +107,26 @@ class Tree {
     return current;
   }
 
-  leverOrderForEach(callback) {
+  levelOrderForEach(callback) {
+    if (!callback) {
+      throw new Error("there is not callback");
+    }
+
+    if (this.root === null) return;
     let queue = [];
     queue.push(this.root);
-    while (queue.length() > 0) {}
+    while (queue.length) {
+      let currentNode = queue.shift();
+
+      callback(currentNode);
+
+      if (currentNode.left) {
+        queue.push(currentNode.left);
+      }
+      if (currentNode.right) {
+        queue.push(currentNode.right);
+      }
+    }
   }
 
   inOrderForEach(callback) {
