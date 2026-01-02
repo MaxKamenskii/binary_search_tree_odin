@@ -76,7 +76,7 @@ class Tree {
         }
         let tempNode = node.right;
         while (tempNode.left !== null) {
-          tempData = tempNode.left;
+          tempNode = tempNode.left;
         }
         node.data = tempNode.data;
         node.right = removeNode(node.right, tempNode.data);
@@ -240,31 +240,35 @@ class Tree {
     };
     return checkBalanced(currentNode);
   }
-  rebalance() {}
+  rebalance() {
+    let array = [];
+    let extract = function (node) {
+      array.push(node.data);
+    };
+
+    this.inOrderForEach(extract);
+    this.root = this.buildTree(array);
+  }
 }
 
 function add(node) {
   node.data = node.data * 2;
 }
 let theArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-// let unique = [...new Set(theArray)];
-// let sorted = unique.sort(function (a, b) {
-//   return a - b;
-// });
-
-// // 1, 3, 4, 5, 7, 8, 9, 23, 67, 324, 6345
-
-// let middle = sorted[Math.round((sorted.length - 1) / 2)];
-
-// console.log(
-//   unique.sort(function (a, b) {
-//     return a - b;
-//   })
-// );
-// console.log(middle);
 
 let myTree = new Tree(theArray);
-console.log(myTree);
-
-myTree.inOrderForEach(add);
+console.log(myTree.isBalanced());
+let print = function (node) {
+  console.log(node.data);
+};
+// console.log(`in level order: ${myTree.inOrderForEach(print)}`);
+myTree.levelOrderForEach(print);
+myTree.insert(2);
+myTree.insert(77);
+myTree.deleteItem(8);
+myTree.deleteItem(5);
+console.log(myTree.isBalanced());
+myTree.rebalance();
+console.log(myTree.isBalanced());
+myTree.levelOrderForEach(print);
 console.log(myTree);
