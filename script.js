@@ -214,7 +214,32 @@ class Tree {
     }
     return amount;
   }
-  isBalanced() {}
+  isBalanced() {
+    let currentNode = this.root;
+    let searchHeight = function (currentNode) {
+      if (currentNode == null) {
+        return -1;
+      } else {
+        return (
+          Math.max(
+            searchHeight(currentNode.left),
+            searchHeight(currentNode.right)
+          ) + 1
+        );
+      }
+    };
+    let checkBalanced = function (node) {
+      if (node == null) return true;
+      else if (
+        Math.abs(searchHeight(node.left) - searchHeight(node.right)) > 1
+      ) {
+        return false;
+      } else {
+        return checkBalanced(node.left) && checkBalanced(node.right);
+      }
+    };
+    return checkBalanced(currentNode);
+  }
   rebalance() {}
 }
 
